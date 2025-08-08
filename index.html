@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Content-editable popover plugin (vanilla JS)</title>
+    <style>
+      /* Basic page styling */
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        padding: 40px;
+        line-height: 1.4;
+      }
+      h1 {
+        margin-bottom: 18px;
+      }
+    </style>
+    <link rel="stylesheet" href="content-editable.css" />
+  </head>
+  <body>
+    <h1>Editable Popover Plugin — Demo</h1>
+
+    <div>
+      <span class="editable" data-multiline="false">Click me</span>
+    </div>
+
+    <div style="margin-top: 12px">
+      <p class="editable" data-multiline="true">
+        This is a paragraph. Click to edit multiline content.
+      </p>
+    </div>
+
+    <div style="margin-top: 12px">
+      <h3 class="editable" data-multiline="false">Section title</h3>
+    </div>
+
+    <script src="content-editable.js"></script>
+    <script>
+      ContentEditablePopover(".editable", {
+        sanitize: false,
+        placeholder: "Edit content here...",
+        closeOnBlur: false,
+        onOpen: function (element) {
+          console.log("Popover opened for:", element);
+        },
+        onClose: function (element) {
+          console.log("Popover closed for:", element);
+        },
+        onSave: function (element, value) {
+          console.log("Content saved for:", element, "Value:", value);
+        },
+        onCancel: function (element) {
+          console.log("Edit cancelled for:", element);
+        },
+      });
+    </script>
+  </body>
+</html>
