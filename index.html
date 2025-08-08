@@ -12,14 +12,18 @@
         padding: 40px;
         line-height: 1.4;
       }
-      h1 {
-        margin-bottom: 18px;
+
+      code {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f4f4f4;
+        padding: 2px 4px;
+        border-radius: 4px;
       }
     </style>
     <link rel="stylesheet" href="./css/content-editable.min.css" />
   </head>
   <body>
-    <h1>Editable Popover Plugin — Demo</h1>
+    <h1>Content Editable Plugin — Demo</h1>
 
     <div>
       <span class="editable" data-multiline="false">Click me</span>
@@ -34,6 +38,83 @@
     <div style="margin-top: 12px">
       <h3 class="editable" data-multiline="false">Section title</h3>
     </div>
+    <hr />
+
+    <h2>Default Options</h2>
+
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Type</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sanitize</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>Whether to strip HTML tags from the input value.</td>
+        </tr>
+        <tr>
+          <td><code>placeholder</code></td>
+          <td><code>string</code></td>
+          <td><code>"Type something"</code></td>
+          <td>Placeholder text shown in the popover input.</td>
+        </tr>
+        <tr>
+          <td><code>onOpen</code></td>
+          <td><code>function</code></td>
+          <td><code>null</code></td>
+          <td>
+            Callback when the popover opens. Receives the element being edited.
+          </td>
+        </tr>
+        <tr>
+          <td><code>onClose</code></td>
+          <td><code>function</code></td>
+          <td><code>null</code></td>
+          <td>
+            Callback when the popover closes. Receives the element being edited.
+          </td>
+        </tr>
+        <tr>
+          <td><code>onSave</code></td>
+          <td><code>function</code></td>
+          <td><code>null</code></td>
+          <td>
+            Callback when content is saved. Receives the element and the new
+            value.
+          </td>
+        </tr>
+        <tr>
+          <td><code>onCancel</code></td>
+          <td><code>function</code></td>
+          <td><code>null</code></td>
+          <td>Callback when editing is cancelled. Receives the element.</td>
+        </tr>
+        <tr>
+          <td><code>showFlashOnSave</code></td>
+          <td><code>boolean</code></td>
+          <td><code>true</code></td>
+          <td>Whether to highlight the element briefly after saving.</td>
+        </tr>
+        <tr>
+          <td><code>flashElementColor</code></td>
+          <td><code>string</code></td>
+          <td><code>"#fde68a"</code></td>
+          <td>Color used for the save highlight.</td>
+        </tr>
+        <tr>
+          <td><code>closeOnBlur</code></td>
+          <td><code>boolean</code></td>
+          <td><code>true</code></td>
+          <td>Close the popover when clicking outside of it.</td>
+        </tr>
+      </tbody>
+    </table>
 
     <script>
       window.CE_DEFAULT_OPTIONS = {
