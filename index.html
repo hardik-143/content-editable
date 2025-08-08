@@ -16,7 +16,7 @@
         margin-bottom: 18px;
       }
     </style>
-    <link rel="stylesheet" href="content-editable.css" />
+    <link rel="stylesheet" href="./css/content-editable.min.css" />
   </head>
   <body>
     <h1>Editable Popover Plugin — Demo</h1>
@@ -27,7 +27,7 @@
 
     <div style="margin-top: 12px">
       <p class="editable" data-multiline="true">
-        This is a paragraph. Click to edit multiline content.
+        This is a paragraph. <b>Click</b> to edit multiline content.
       </p>
     </div>
 
@@ -35,10 +35,15 @@
       <h3 class="editable" data-multiline="false">Section title</h3>
     </div>
 
-    <script src="content-editable.js"></script>
     <script>
-      ContentEditablePopover(".editable", {
-        sanitize: false,
+      window.CE_DEFAULT_OPTIONS = {
+        placeholder: "Type here...",
+      };
+    </script>
+    <script src="./js/content-editable.js"></script>
+    <script>
+      contentEditable(".editable", {
+        sanitize: true,
         placeholder: "Edit content here...",
         closeOnBlur: false,
         onOpen: function (element) {

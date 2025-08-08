@@ -7,7 +7,10 @@
   const checkSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>`;
   const closeSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 
-  const _DEFAULT_OPTIONS = {
+  const userDefaults = window.CE_DEFAULT_OPTIONS || {};
+
+  console.log("Content Editable Popover initialized with options:", userDefaults);
+  const DEFAULT_OPTIONS = {
     sanitize: false, // default no sanitization
     placeholder: "Type something", // default placeholder text
     onOpen: null, // callback when popover opens
@@ -17,20 +20,21 @@
     showFlashOnSave: true, // whether to flash element on save
     flashElementColor: "#fde68a", // default flash color
     closeOnBlur: true, // close popover on click outside
+    ...userDefaults, // merge user defaults if any
   };
 
   function initializeEditable(selector = ".editable", options = {}) {
-    const op_sanitize = !!options.sanitize ?? _DEFAULT_OPTIONS.sanitize;
-    const op_placeholder = options.placeholder || _DEFAULT_OPTIONS.placeholder;
-    const op_onOpen = options.onOpen || _DEFAULT_OPTIONS.onOpen;
-    const op_onClose = options.onClose || _DEFAULT_OPTIONS.onClose;
-    const op_onSave = options.onSave || _DEFAULT_OPTIONS.onSave;
-    const op_onCancel = options.onCancel || _DEFAULT_OPTIONS.onCancel;
-    const op_closeOnBlur = options.closeOnBlur ?? _DEFAULT_OPTIONS.closeOnBlur;
+    const op_sanitize = !!options.sanitize ?? DEFAULT_OPTIONS.sanitize;
+    const op_placeholder = options.placeholder || DEFAULT_OPTIONS.placeholder;
+    const op_onOpen = options.onOpen || DEFAULT_OPTIONS.onOpen;
+    const op_onClose = options.onClose || DEFAULT_OPTIONS.onClose;
+    const op_onSave = options.onSave || DEFAULT_OPTIONS.onSave;
+    const op_onCancel = options.onCancel || DEFAULT_OPTIONS.onCancel;
+    const op_closeOnBlur = options.closeOnBlur ?? DEFAULT_OPTIONS.closeOnBlur;
     const op_showFlashOnSave =
-      options.showFlashOnSave ?? _DEFAULT_OPTIONS.showFlashOnSave;
+      options.showFlashOnSave ?? DEFAULT_OPTIONS.showFlashOnSave;
     const op_flashElementColor =
-      options.flashElementColor || _DEFAULT_OPTIONS.flashElementColor;
+      options.flashElementColor || DEFAULT_OPTIONS.flashElementColor;
 
     const _id = Math.random().toString(36).substring(2, 9);
     let activePopover = null;
@@ -202,7 +206,7 @@
       }
     }
 
-    function applyAndClose(control, el, op_sanitize, multiline) {
+    function applyAndClose(control, el, sanitize, multiline) {
       const value = control.value;
       if (value.trim() === "") {
         if (activePopover && activePopover.pop) {
@@ -210,7 +214,7 @@
         }
         return;
       }
-      if (op_sanitize) {
+      if (sanitize) {
         // Very simple sanitization - strip tags. For production use a proper sanitizer.
         const safe = value.replace(/<[^>]+>/g, "");
         el.innerText = safe;
@@ -314,5 +318,5 @@
   }
 
   // Export to window for debug/usage if needed:
-  window.ContentEditablePopover = initializeEditable;
+  window.contentEditable = initializeEditable;
 })();
